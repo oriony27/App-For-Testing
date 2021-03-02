@@ -1,6 +1,7 @@
 package com.app.testing.service;
 
-import com.app.testing.model.User;
+import com.app.testing.exception.impl.ValidationExceptions;
+import com.app.testing.entity.User;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface UserService {
      * @param id user id.
      * @return User.
      */
-    User getUserById(long id);
+    User getUserById(long id) throws ValidationExceptions.NoSuchUser;
 
     /**
      * Get list of users.
@@ -32,7 +33,7 @@ public interface UserService {
      * @param user User data.
      * @return Created User object.
      */
-    User createUser(User user);
+    User createUser(User user) throws ValidationExceptions.UserAlreadyExists;
 
     /**
      * Updates user using given data.
@@ -46,8 +47,7 @@ public interface UserService {
      * Deletes user by its id.
      *
      * @param userId User id.
-     * @return Flag that shows whether user has been deleted.
      */
-    boolean deleteUser(long userId);
+    void deleteUser(long userId);
 
 }

@@ -1,48 +1,49 @@
-package com.app.testing.model.impl;
+package com.app.testing.entity;
 
-import com.app.testing.model.User;
 
-public class UserImpl implements User {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "users")
+public class User {
+    @Id
+    @GeneratedValue
     private long id;
     private String name;
     private int age;
 
-    public UserImpl() {
+    public User() {
     }
 
-    public UserImpl(long id, String name, int age) {
+    public User(long id, String name, int age) {
         this.id = id;
         this.name = name;
         this.age = age;
     }
 
-    @Override
     public String getName() {
         return this.name;
     }
 
-    @Override
     public void setName(String name) {
         this.name = name;
     }
 
-    @Override
     public int getAge() {
         return this.age;
     }
 
-    @Override
     public void setAge(int age) {
         this.age = age;
     }
 
-    @Override
     public long getId() {
         return this.id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }

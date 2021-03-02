@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  app:
+    restart: always
+    container_name: app-for-testing
+    image: app-for-testing
+    build: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - dbpostgresql
+
+  dbpostgresql:
+    restart: always
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=test
+    logging:
+      options:
+        max-size: 10m
+        max-file: "3"
