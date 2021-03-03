@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers(int pageSize, int pageNum) {
         logger.info(MessageFormat.format("Selecting all users. Limit is {0}, offset is {1}", pageSize, pageNum));
-        return userRepository.findAll().stream().skip((pageSize - 1) * pageNum).limit(pageSize).collect(Collectors.toList());
+        return userRepository.findAll().stream().skip(pageNum).limit(pageSize).collect(Collectors.toList());
     }
 
     @Override
