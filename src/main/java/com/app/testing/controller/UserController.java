@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @DeleteMapping("/deleteUser")
-    public ResponseEntity<String> deleteUserById(@RequestParam(value = "id") long id) {
+    public ResponseEntity<String> deleteUserById(@RequestParam(value = "id") long id) throws ValidationExceptions.NoSuchUser {
         logger.info(MessageFormat.format("Passed user id is {0}", id));
         userService.deleteUser(id);
         return new ResponseEntity<>("Deleted", HttpStatus.OK);

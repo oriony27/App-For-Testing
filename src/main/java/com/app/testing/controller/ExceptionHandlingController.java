@@ -24,10 +24,4 @@ public class ExceptionHandlingController extends ResponseEntityExceptionHandler 
         logger.info("No such user exception handled.");
         return new ResponseEntity<>("This user doesn't exists!",HttpStatus.NOT_FOUND);
     }
-
-//    @ExceptionHandler(RuntimeException.class)
-//    public ResponseEntity<String> handleRuntime(HttpServletRequest req, Exception ex) {
-//        logger.error("Request: " + req.getRequestURL() + " raised " + ex);
-//        return new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
 }

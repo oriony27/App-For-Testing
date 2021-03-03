@@ -5,6 +5,8 @@ import com.app.testing.entity.User;
 import com.app.testing.repository.UserRepository;
 import com.app.testing.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.validation.ValidationErrors;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.text.MessageFormat;
@@ -32,9 +34,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAllUsers(int pageSize, int pageNum) {
-        logger.info(MessageFormat.format("Selecting all users. Limit is {0}, offset is {1}", pageSize, pageNum));
-        return userRepository.findAll().stream().skip(pageNum).limit(pageSize).collect(Collectors.toList());
+    public List<User> getAllUsers(int limit, int offset) {
+        logger.info(MessageFormat.format("Selecting all users. Limit is {0}, offset is {1}", limit, offset));
+        return userRepository.findAll().stream().skip(offset).limit(limit).collect(Collectors.toList());
     }
 
     @Override
@@ -55,8 +57,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(long userId) {
+    public void deleteUser(long userId) throws ValidationExceptions.NoSuchUser {
         logger.info(MessageFormat.format("Deleting user with id {0}", userId));
-        userRepository.deleteById(userId);
+
+        try {
+            userRepository.deleteById(userId);
+        } catch (EmptyResultDataAccessException ex) {
+            logger.info(MessageFormat.format("User with id {0} not found!", userId));
+            throw new ValidationExceptions.NoSuchUser(MessageFormat.format("User with id {0} not found!", userId));
+        }
     }
 }

@@ -21,11 +21,11 @@ public interface UserService {
      * Get list of users.
      * In case nothing was found, empty list is returned.
      *
-     * @param pageSize Pagination param. Number of users to return on a page.
-     * @param pageNum  Pagination param. Number of the page to return. Starts from 1.
+     * @param limit Pagination param. Number of users to return on a page.
+     * @param offset  Pagination param. Number of the page to return. Starts from 0.
      * @return List of users.
      */
-    List<User> getAllUsers(int pageSize, int pageNum);
+    List<User> getAllUsers(int limit, int offset);
 
     /**
      * Creates new user. User id should be auto-generated.
@@ -48,6 +48,6 @@ public interface UserService {
      *
      * @param userId User id.
      */
-    void deleteUser(long userId);
+    void deleteUser(long userId) throws ValidationExceptions.NoSuchUser;
 
 }
