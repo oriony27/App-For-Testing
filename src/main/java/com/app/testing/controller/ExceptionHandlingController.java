@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @ControllerAdvice
 public class ExceptionHandlingController extends ResponseEntityExceptionHandler {
@@ -25,9 +27,9 @@ public class ExceptionHandlingController extends ResponseEntityExceptionHandler 
         return new ResponseEntity<>("This user doesn't exists!",HttpStatus.NOT_FOUND);
     }
 
-//    @ExceptionHandler(RuntimeException.class)
-//    public ResponseEntity<String> handleRuntime(HttpServletRequest req, Exception ex) {
-//        logger.error("Request: " + req.getRequestURL() + " raised " + ex);
-//        return new ResponseEntity<>("", HttpStatus.NOT_FOUND);
-//    }
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<String> handleRuntime(HttpServletRequest req, Exception ex) {
+        logger.error("Request: " + req.getRequestURL() + " raised " + ex);
+        return new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
